@@ -91,19 +91,11 @@ def handle_tool_call(tool_call, messages, message):
 def tool_agent(userInput):
     messages=[{"role": "system", "content": "You're a helpful assistant that provides information."},
               {"role": "user", "content": userInput}]
+    
     message = LLM_response(messages)
-        #message:  ChatCompletionMessage(content=None, refusal=None, role='assistant', annotations=[], audio=None, 
-        #                               function_call=None, 
-        #                               tool_calls=[ChatCompletionMessageToolCall(id='call_3U4Je9rTNTyjrlBXrIkJ27sm', 
-        #                                               function=Function(arguments='{"city":"New York"}', name='get_current_weather'), 
-        #                                               type='function')])
+      
     tool_calls = message.tool_calls
-        #tool_calls:  [ChatCompletionMessageToolCall(
-        #                   id='call_3U4Je9rTNTyjrlBXrIkJ27sm', 
-        #                   function=Function(arguments='{"city":"New York"}', name='get_current_weather'), 
-        #                   type='function')
-        #              ]
-    # Check if LLM requested a tool call
+        
     if tool_calls:
         for tool_call in tool_calls: # Loop through each tool call
             messages.append(message) #This is required for LLM to understand the context, previous message is a tool call
